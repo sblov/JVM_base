@@ -1068,6 +1068,155 @@ i2l：int转换为long，以上代码问题为在int运算时越界，再将结�
 
 ​	![ ](C:\Users\Administrator\Desktop\JVM\类型转换指令.png)
 
+##### 对象创建与访问指令
+
+​	创建类实例的指令：new
+
+​	创建数组的指令：newarray ，anewarray，multianewarray
+
+​	访问类字段：getfield，putfield，getstatic，putstatic
+
+​	把数组元素加载到操作数栈的指令：baload（c/s/i/l/d/a）
+
+​	将操作数栈的值存储到数组元素：astore
+
+​	取数组长度的指令：arraylength
+
+​	检查实例类型的指令： instanceof，checkcast
+
+```java
+public class demo{
+	public static void main(String[] args){
+		User user = new User();
+		User users[] = new User[10];
+
+		int[] arr = new int[10]; 
+
+		user.name = "lov";
+
+		String name = user.name;
+	}
+}
+class User{
+		String name ;
+		static int age;
+}
+```
+
+![](C:\Users\Administrator\Desktop\JVM\对象创建指令.png)
+
+##### 操作数栈管理指令
+
+​	操作数栈指令用于直接操作操作数栈
+
+​	将操作数栈一个或两个元素出栈： pop，pop2
+
+​	复制栈顶一个或两个数值并将复制或双份复制值重新压入栈顶：dup，dup2，dup_x1，dup_x2
+
+​	将栈顶的两个数值替换：swap
+
+##### 控制转移指令
+
+​	控制转移指令可以让java虚拟机有条件或无条件的从指定的位置指令而不是控制转移指令的下一条指令继续执行程序，可以认为控制转移指令就是在修改pc寄存器的值
+
+​	条件分支：if_eq，if_lt，if_le，if_ne，if_gt，if_null，if_cmple
+
+​	复合条件分支：tableswitch，lookupswitch
+
+​	无条件分支：goto，goto_w，jsr，jsr_w，ret
+
+```java
+int a = 1;
+		if(a>1){
+			System.out.println("true");
+		}else{
+			System.out.println("false");
+		}
+```
+
+![](C:\Users\Administrator\Desktop\JVM\控制转移指令.png)
+
+##### 方法调用与返回指令
+
+​	**方法调用**
+
+​	invokevitrual：调用对象的实例方法，根据对象的实际类型进行分配（虚方法分配），这也是java语言中最常见的方法分派方式
+
+​	invokeinterface：用于调用接口方法，会在运行时搜索一个实现了这个接口方法的对象，找出适合的方法进行调用
+
+​	invokespecial：用于调用一些需要特殊处理的实例方法，包括实例初始化方法、室友方法、父类方法
+
+​	invokestatic：用于调用类方法（static）
+
+​	**方法返回**
+
+​	方法调用的指令与数据类型无关，而方法返回指令则时根据返回值的类型区分，包括ireturn（当返回值为boolean、byte、char、short、int），lreturn，freturn，dreturn，areturn，此外还有一条return指令供声明为void的方法，实例初始化方法，类和接口的类初始化方法使用
+
+```java
+public class demo{
+	public static void main(String[] args){
+		
+		inf interf = new infImpl();
+
+		int res = interf.add(1,2);
+
+	}
+
+	public int add2	 (int a,int b){
+
+		return a+b;
+	}
+}
+
+interface inf{
+	int add(int a,int b);
+}
+
+class infImpl implements inf{
+	
+	public int add (int a,int b){
+
+		return a+b;
+	}
+}
+```
+
+![](C:\Users\Administrator\Desktop\JVM\方法指令.png)	
+
+##### 异常处理指令
+
+​	在程序中显示抛出异常的操作会由athrow指令实现，除了这种情况，还有别的异常会在其他java虚拟机实例检测到异常状况时由虚拟机自动抛出
+
+```java
+try{
+			int i = 1/0;
+		}catch(Exception e){
+			int b =0;
+		}
+
+		int c = 1/0;
+
+		throw new RuntimeException("error");
+```
+
+![](C:\Users\Administrator\Desktop\JVM\异常指令.png)
+
+##### 同步指令
+
+​	 Java 虚拟机可以支持方法级的同步和方法内部一段指令序列的同步，这两种同步结构都是使用管程（Monitor）来支持的。
+
+​        方法级的同步是隐式的，即无须通过字节码指令来控制，它实现在方法调用和返回操作之中。虚拟机可以从方法常量池的方法表结构中的 ACC_SYNCHRONIZED 方法标志得知一个方法是否声明为同步方法。当方法调用时，调用指令将会检查方法的 ACC_SYNCHRONIZED 访问标志是否被设置，如果设置了，执行线程就要求先成功持有管程，然后才能执行方法，最后当方法完成（无论是正常完成还是非正常完成）时释放管程。在方法执行期间，执行线程持有了管程，其他任何线程都无法再获取到同一个管程。如果一个同步方法执行期间抛出了异常，并且在方法内部无法处理此异常，那么这个同步方法所持有的管程将在异常抛到同步方法之外时自动释放。
+
+​        同步一段指令集序列通常是由 Java 语言中的 synchronized 语句块来表示的，Java 虚拟机的指令集中有 monitorenter 和 monitorexit 两条指令来支持 synchronized 关键字的语义，正确实现 synchronized 关键字需要 javac 编译器与 Java 虚拟机两者共同协作支持
+
+```java
+synchronized(demo.class){
+			add(1,2);
+		}
+```
+
+![](C:\Users\Administrator\Desktop\JVM\同步指令.png)
+
 #### 3.
 
 ### 七、**类加载机制**
