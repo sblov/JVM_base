@@ -25,13 +25,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​	该文件需要通过内存分析工具进行查看分析（eclipse memory analysis）
 
-![eclipse meomory analysis](C:\Users\Administrator\Desktop\JVM\溢出分析.png)
+![eclipse meomory analysis](D:\Git_REP\JVM\溢出分析.png)
 
 #### 2）JVM监控工具
 
 ​	在jdk包中包含了对JVM的监控工具：`jconsole`
 
-![jconsole](C:\Users\Administrator\Desktop\JVM\jconsole.png)
+![jconsole](D:\Git_REP\JVM\jconsole.png)
 
 
 
@@ -106,7 +106,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ### 二、**内存结构**
 
-​	![java虚拟机内存管理图](C:\Users\Administrator\Desktop\JVM\内存管理.png)
+​	![java虚拟机内存管理图](D:\Git_REP\JVM\内存管理.png)
 
 #### 1.程序计数器
 
@@ -143,7 +143,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
   }
   ```
 
-  ![StackOverFlowError](C:\Users\Administrator\Desktop\JVM\StackOverFlowError.png)
+  ![StackOverFlowError](D:\Git_REP\JVM\StackOverFlowError.png)
 
 #### 3.本地方法栈：
 
@@ -176,7 +176,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
    只有new对象与调用对象的<init>方法可以检测到，中间的步骤都是虚拟机内部执行
 
-   ![对象的创建](C:\Users\Administrator\Desktop\JVM\对象的创建.png)
+   ![对象的创建](D:\Git_REP\JVM\对象的创建.png)
 
    给对象分配内存：
 
@@ -195,7 +195,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
       - 自身运行时数据（Mark Word）：哈希值；GC分代年龄；锁状态标志；线程持有的锁；偏向线程ID；偏向时间戳
       - 类型指针
 
-      ![对象头](C:\Users\Administrator\Desktop\JVM\对象头.png)
+      ![对象头](D:\Git_REP\JVM\对象头.png)
 
    2. InstanceData（内部的数据存储策略：将宽度相同类型的数据存放在一块）
 
@@ -225,7 +225,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		*-verbose:gc -XX:+PrintGCDetails*
 
-![GCDetails](C:\Users\Administrator\Desktop\JVM\GCDetails.png)
+![GCDetails](D:\Git_REP\JVM\GCDetails.png)
 
 ##### 	2.可达性分析法
 
@@ -233,7 +233,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		GCRoots：虚拟机栈引用的对象；方法去的类属性引用的对象；方法区中常量引用的对象；本地方法栈中引用的对象
 
-![可达性分析法](C:\Users\Administrator\Desktop\JVM\可达性分析法.png)
+![可达性分析法](D:\Git_REP\JVM\可达性分析法.png)
 
 #### 2.垃圾回收
 
@@ -264,7 +264,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			**浪费空间：**
 
-​			![](C:\Users\Administrator\Desktop\JVM\复制算法.png)
+​			![](D:\Git_REP\JVM\复制算法.png)
 
 ​			在java中的新生代串行垃圾回收器中，使用了复制算法的思想，新生代分为eden空间、from空间和to空间3个部分，其中from和to空间可以看做用于复制的两块大小相同、可互换角色的内存空间块（同一时间只能有一个被当做当前内存空间使用，另一个在垃圾回收时才发挥作用），from和to空间也称为survivor空间，用于存放未被回收的对象。
 
@@ -278,7 +278,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​	
 
-![复制算法2](C:\Users\Administrator\Desktop\JVM\复制算法2.png)
+![复制算法2](D:\Git_REP\JVM\复制算法2.png)
 
 ###### 		3）**标记-整理算法**（标记清除压缩算法 ）
 
@@ -288,13 +288,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			将所有的存活对象压缩到内存空间的一端，之后，清理边界外所有的空间。这样做避免的碎片的产生，又不需要两块相同的内存空间，因此性价比高
 
-​			![](C:\Users\Administrator\Desktop\JVM\标记整理.png)
+​			![](D:\Git_REP\JVM\标记整理.png)
 
 ###### 		4）**分代收集算法**
 
 ​			将内存空间根据对象的特点不同进行划分，选择合适的垃圾回收算法，以提高垃圾回收的效率。 
 
-​			![](C:\Users\Administrator\Desktop\JVM\分代算法.png)
+​			![](D:\Git_REP\JVM\分代算法.png)
 
 ###### 		5)**分区算法** 
 
@@ -304,7 +304,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			通常，相同的条件下，堆空间越大，一次GC所需的时间就越长，从而产生的停顿时间就越长。为了更好的控制GC产生的停顿时间，将一块大的内存区域分割成多个小块，根据目标的停顿时间，每次合理的回收若干个小区间，而不是整个堆空间，从而减少一个GC的停顿时间。 
 
-​			![](C:\Users\Administrator\Desktop\JVM\分区算法.png)
+​			![](D:\Git_REP\JVM\分区算法.png)
 
 ##### 	2.垃圾回收器
 
@@ -316,7 +316,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			是Jvm **client模式**下默认的**新生代收集器**。对于限定单个CPU的环境来说，简单高效，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率，因此是运行在Client模式下的虚拟机的不错选择（比如桌面应用场景）。 
 
-​		![](C:\Users\Administrator\Desktop\JVM\serial收集器.jpg) 
+​		![](D:\Git_REP\JVM\serial收集器.jpg) 
 
 ---
 
@@ -326,7 +326,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		如果在Service模式下使用：1.一种是在JDK1.5以及之前的版本中与Parallel Scavenge收集器搭配使用，因为那时还没有Parallel  Old老年代收集器搭配；2.另一种就是作为CMS收集器的后备预案，在并发收集发生Concurrent Model Failure时使用 
 
-​			![](C:\Users\Administrator\Desktop\JVM\Serial Old.jpg)
+​			![](D:\Git_REP\JVM\Serial Old.jpg)
 
 ###### 		2）Parnew
 
@@ -334,7 +334,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 　　		ParNew收集器在单CPU环境中绝对没有Serial的效果好，由于存在线程交互的开销，该收集器在超线程技术实现的双CPU中都不能一定超过Serial收集器。默认开启的垃圾收集器线程数就是CPU数量，可通过-XX：parallelGCThreads参数来限制收集器线程数
 
-​			![](C:\Users\Administrator\Desktop\JVM\ParNew收集器.jpg)
+​			![](D:\Git_REP\JVM\ParNew收集器.jpg)
 
 ###### 		3）Parallel Scavenge
 
@@ -346,13 +346,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 　　		还有一个参数表示自适应调节策略（GC Ergonomics）（-XX：UseAdaptiveSizePolicy）。就不用手动设置新生代大小（-Xmn）、Eden和Survivor区的比例（-XX：SurvivorRatio）今生老年代对象大小（-XX：PretenureSizeThreshold），会根据当前系统的运行情况手机监控信息，动态调整停顿时间和吞吐量大小。也是其与PreNew收集器的一个重要区别，也是其无法与CMS收集器搭配使用的原因（CMS收集器尽可能地缩短垃圾收集时用户线程的停顿时间，以提升交互体验）。
 
-​			![](C:\Users\Administrator\Desktop\JVM\Parallel Scavenge收集器.jpg)
+​			![](D:\Git_REP\JVM\Parallel Scavenge收集器.jpg)
 
 ---
 
 ​			**Parallel Old(并行GC)收集器:**Parallel Old是Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法，JDK1.6才提供。 由于之前有一个Parallel Scavenge新生代收集器，但是却无老年代收集器与之完美结合，只能采用Serial Old老年代收集器，但是由于Serial Old收集器在服务端应用性能上低下（毕竟单线程，多CPU浪费了），其吞吐量反而不一定有ParNew+CMS组合。 
 
-​			![](C:\Users\Administrator\Desktop\JVM\Parallel Old.jpg)
+​			![](D:\Git_REP\JVM\Parallel Old.jpg)
 
 ###### 		4）Cms
 
@@ -380,7 +380,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 > >
 > > 　　3.最后一个缺点，CMS是基于“标记-清除”算法实现的收集器，使用“标记-清除”算法收集后，会产生大量碎片。空间碎片太多时，将会给对象分配带来很多麻烦，比如说大对象，内存空间找不到连续的空间来分配不得不提前触发一次Full  GC。为了解决这个问题，CMS收集器提供了一个-XX:UseCMSCompactAtFullCollection开关参数，用于在Full  GC之后增加一个内存碎片的合并整理过程，但是内存整理过程是无法并发的，因此解决了空间碎片问题，却使停顿时间变长。还可通过-XX:CMSFullGCBeforeCompaction参数设置执行多少次不压缩的Full  GC之后，跟着来一次碎片整理过程（默认值是0，表示每次进入Full GC时都进行碎片整理）。
 
-​			![](C:\Users\Administrator\Desktop\JVM\CMS收集器.jpg)
+​			![](D:\Git_REP\JVM\CMS收集器.jpg)
 
 ###### 		5）G1
 
@@ -511,7 +511,7 @@ public class AllocationTest {
 
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\优先分配Eden.png)
+![](D:\Git_REP\JVM\优先分配Eden.png)
 
 ​		**[GC……]**就是GC日志记录，而Heap以下的信息是JVM关闭前的堆使用情况信息描述。
 
@@ -541,7 +541,7 @@ public class AllocationTest{
 }
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\大对象分配.png)
+![](D:\Git_REP\JVM\大对象分配.png)
 
 ​		allocation1分配的是4MB，达到PretenureSizeThreshold定义的4MB阀值，所以直接分配到老年代，没有GC
 
@@ -574,7 +574,7 @@ public class AllocationTest{
 
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\长期存活对象.png)
+![](D:\Git_REP\JVM\长期存活对象.png)
 
 ​		该环境为jdk8.0，无论**-XX:MaxTenuringThreshold=15 OR 1**，输出结果一样；或许内部有改动，但还是看出两次的GC，第二次直接将allocation1分配到老年代
 
@@ -604,7 +604,7 @@ public class AllocationTest{
 
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\年龄代分配.png)
+![](D:\Git_REP\JVM\年龄代分配.png)
 
 ​		由于jdk8.0的改进，两种情况输出一致
 
@@ -649,7 +649,7 @@ public class AllocationTest{
 
 ​	java编译环境运行，产生本地虚拟机唯一id（local virtual machine id），没有具体应用名
 
-![](C:\Users\Administrator\Desktop\JVM\jps.png)
+![](D:\Git_REP\JVM\jps.png)
 
 #### 2.jstat
 
@@ -657,9 +657,9 @@ public class AllocationTest{
 
 `https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html`
 
-![](C:\Users\Administrator\Desktop\JVM\jstat.png)
+![](D:\Git_REP\JVM\jstat.png)
 
-![](C:\Users\Administrator\Desktop\JVM\jstat -gc.png)
+![](D:\Git_REP\JVM\jstat -gc.png)
 
 ​	元空间：本质与永久代类似，都是对jvm规范中方法区的实现	。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间大小仅受本地内存限制
 
@@ -667,7 +667,7 @@ public class AllocationTest{
 
 ​	实时查看和调整虚拟机的各项参数
 
-​	![](C:\Users\Administrator\Desktop\JVM\jinfo.png)
+​	![](D:\Git_REP\JVM\jinfo.png)
 
 #### 4.jmap
 
@@ -675,7 +675,7 @@ public class AllocationTest{
 
 ​	`jmap -dump:format=b,file=e:\a.bin 10688`	将快照信息转储到指定文件中
 
-![](C:\Users\Administrator\Desktop\JVM\jmap.png)
+![](D:\Git_REP\JVM\jmap.png)
 
 #### 5.jhat
 
@@ -683,13 +683,13 @@ public class AllocationTest{
 
 ​	堆jmap生成的快照文件进行分析，并会以http服务方式，提供端口查看具体分析信息，该工具在分析时会很占内存与CPU
 
-![](C:\Users\Administrator\Desktop\JVM\jhat.png)
+![](D:\Git_REP\JVM\jhat.png)
 
 ​	以localhost:7000访问
 
-![](C:\Users\Administrator\Desktop\JVM\jhat-2.png)				
+![](D:\Git_REP\JVM\jhat-2.png)				
 
-​	通过OQL对分析的堆内对象进行查询![](C:\Users\Administrator\Desktop\JVM\oql.png)
+​	通过OQL对分析的堆内对象进行查询![](D:\Git_REP\JVM\oql.png)
 
 #### 6.jstack
 
@@ -697,7 +697,7 @@ public class AllocationTest{
 
 ​	线程快照：当前虚拟机内，每一条线程执行的方法堆栈集合
 
-![](C:\Users\Administrator\Desktop\JVM\jstack.png)
+![](D:\Git_REP\JVM\jstack.png)
 
 ​	通过以下代码可实现类似功能
 
@@ -724,7 +724,7 @@ public class StackTrace {
 }
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\stacktrace.png)
+![](D:\Git_REP\JVM\stacktrace.png)
 
 #### 7.jconsole
 
@@ -738,7 +738,7 @@ List<Object> list = new ArrayList<>();
 		}
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\jconsole_1.png)
+![](D:\Git_REP\JVM\jconsole_1.png)
 
 ​	线程监控
 
@@ -775,7 +775,7 @@ List<Object> list = new ArrayList<>();
 		thread.start();
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\jconsol_2.png)
+![](D:\Git_REP\JVM\jconsol_2.png)
 
 ​	死锁
 
@@ -828,11 +828,11 @@ class DeadLock implements Runnable{
 }
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\jconsole_2.png)
+![](D:\Git_REP\JVM\jconsole_2.png)
 
 #### 8.VisualVM
 
-![](C:\Users\Administrator\Desktop\JVM\jvisualVM.PNG)
+![](D:\Git_REP\JVM\jvisualVM.PNG)
 
 ### 五、**性能调优案例**
 
@@ -883,21 +883,21 @@ class DeadLock implements Runnable{
 
 ​	class文件以魔数开头，通过魔数可判断当前文件是否为class，魔数后有可以判断jdk版本的major_version
 
-![](C:\Users\Administrator\Desktop\JVM\魔数.png)
+![](D:\Git_REP\JVM\魔数.png)
 
-![](C:\Users\Administrator\Desktop\JVM\魔数-jdk.png)
+![](D:\Git_REP\JVM\魔数-jdk.png)
 
 ##### 常量池(constant_pool)
 
-![](C:\Users\Administrator\Desktop\JVM\常量池.png)
+![](D:\Git_REP\JVM\常量池.png)
 
 ​	紧接着主次版本号就是常量池了，第一个是常量池数量(占两个字节)，接下来就是常量池表，通过cp_info，确定指向的常量，通过以下常量项目表来分析常量池位置大小
 
-![](C:\Users\Administrator\Desktop\JVM\常量项目类型.png)
+![](D:\Git_REP\JVM\常量项目类型.png)
 
 ​	通过javap更直观的查看整个class文件中的常量池
 
-​	![](C:\Users\Administrator\Desktop\JVM\javap.png)
+​	![](D:\Git_REP\JVM\javap.png)
 
 ##### 访问标志（access_flags）
 
@@ -905,11 +905,11 @@ class DeadLock implements Runnable{
 
 ​	**字节码文件：**
 
-![](C:\Users\Administrator\Desktop\JVM\flags.png)
+![](D:\Git_REP\JVM\flags.png)
 
 ​	**javap -verbose :**
 
-![](C:\Users\Administrator\Desktop\JVM\flags2.png)
+![](D:\Git_REP\JVM\flags2.png)
 
 ​	**具体含义：**
 
@@ -924,23 +924,23 @@ class DeadLock implements Runnable{
 | ACC_ANNOTATION | 0x2000 | 注解类型                  | 注解       |
 | ACC_ENUM       | 0x4000 | 枚举类型                  | 枚举       |
 
-![](C:\Users\Administrator\Desktop\JVM\access_flags.png)
+![](D:\Git_REP\JVM\access_flags.png)
 
 ##### 类索引
 
 ​	位于访问标志后，先是指向常量池中当前类索引，然后指向继承的父类索引，再是接口的数量，最后是每个接口对应的索引，该demo中没有接口
 
-​	![](C:\Users\Administrator\Desktop\JVM\类索引.png)
+​	![](D:\Git_REP\JVM\类索引.png)
 
 ##### 字段表集合
 
 ​	class文件：
 
-​		![](C:\Users\Administrator\Desktop\JVM\字段表集合.png)
+​		![](D:\Git_REP\JVM\字段表集合.png)
 
 ​	javap -verbose
 
-![](C:\Users\Administrator\Desktop\JVM\字段表集合2.png)
+![](D:\Git_REP\JVM\字段表集合2.png)
 
 ​	字段表的结构： 字段修饰符放在access_flags中，它与类中的access_flags相似，都是一个u2的数据类型
 
@@ -985,7 +985,7 @@ class DeadLock implements Runnable{
 
 ​	表结构与字段表一致
 
-![](C:\Users\Administrator\Desktop\JVM\方法表集合.png)
+![](D:\Git_REP\JVM\方法表集合.png)
 
 ##### 属性表集合
 
@@ -1017,7 +1017,7 @@ class DeadLock implements Runnable{
 
 ​	基本上指令的第一个字母表示数据类型
 
-![](C:\Users\Administrator\Desktop\JVM\指令集数据类型.png)
+![](D:\Git_REP\JVM\指令集数据类型.png)
 
 ##### 加载指令
 
@@ -1031,7 +1031,7 @@ class DeadLock implements Runnable{
 
 ​	扩展局部变量表的访问索引的指令：wide
 
-![](C:\Users\Administrator\Desktop\JVM\加载指令.png)
+![](D:\Git_REP\JVM\加载指令.png)
 
 ```java
 public class demo{
@@ -1066,7 +1066,7 @@ public int add(int a,int b){
 
 i2l：int转换为long，以上代码问题为在int运算时越界，再将结果转换为long	
 
-​	![ ](C:\Users\Administrator\Desktop\JVM\类型转换指令.png)
+​	![ ](D:\Git_REP\JVM\类型转换指令.png)
 
 ##### 对象创建与访问指令
 
@@ -1103,7 +1103,7 @@ class User{
 }
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\对象创建指令.png)
+![](D:\Git_REP\JVM\对象创建指令.png)
 
 ##### 操作数栈管理指令
 
@@ -1134,7 +1134,7 @@ int a = 1;
 		}
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\控制转移指令.png)
+![](D:\Git_REP\JVM\控制转移指令.png)
 
 ##### 方法调用与返回指令
 
@@ -1181,7 +1181,7 @@ class infImpl implements inf{
 }
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\方法指令.png)	
+![](D:\Git_REP\JVM\方法指令.png)	
 
 ##### 异常处理指令
 
@@ -1199,7 +1199,7 @@ try{
 		throw new RuntimeException("error");
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\异常指令.png)
+![](D:\Git_REP\JVM\异常指令.png)
 
 ##### 同步指令
 
@@ -1215,21 +1215,292 @@ synchronized(demo.class){
 		}
 ```
 
-![](C:\Users\Administrator\Desktop\JVM\同步指令.png)
-
-#### 3.
+![](D:\Git_REP\JVM\同步指令.png)
 
 ### 七、**类加载机制**
 
-#### 1.
+​	虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验，解析与初始化，最后形成可以被虚拟机直接使用的java类型
 
-#### 2.
+#### 1.类加载时机
 
-#### 3.
+​	**类加载的生命周期**![](D:\Git_REP\JVM\类加载的生命周期.PNG)
+
+​	在加载时，连接就可以进行，形成并行执行；对于加载的执行时机不能确定
+
+​	对于初始化，只有在以下条件才能触发
+
+![](D:\Git_REP\JVM\初始化时机.png)
+
+​	*不被初始化的例子*
+
+![](D:\Git_REP\JVM\不被初始化.png)
+
+```java
+	public static void main(String[] args) {
+		//触发初始化
+		Child child = new Child();
+		
+		//不触发初始化
+		//通过子类引用父类静态字段
+		System.out.println(Child.INT_P);
+		//通过数组定义
+		Child[] childs = new Child[10];
+		//调用类常量
+		System.out.println(Child.INT_C);
+	}
+```
+
+#### 2.类加载-加载
+
+​	通过一个类的全限定名来获取定义此类的二进制流（通过各种途径获取，如文件，网络，数据库，转化生成）
+
+​	将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构
+
+​	在内存中生成一个代表这个类的Class对象，作为这个类的各种数据的访问入口
+
+#### 3.类加载-验证
+
+​	验证是连接的第一步，这一阶段的目的是为了确保class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全
+
+```java
+1.文件格式验证：
+（1）是否以魔数0xCAFEBABE开头。
+（2）主、次版本号是否在当前虚拟机处理范围之内。
+（3）常量池的常量中是否有不被支持的常量类型（检查常量tag标志）。
+（4）指向常量的各种索引值中是否有指向不存在的常量或不符合类型的常量。
+（5）CONSTANT_Utf8_info型的常量中是否有不符合UTF8编码的数据。
+（6）Class文件中各个部分及文件本身是否有被删除的或附加的其他信息。
+  ......
+2.元数据验证：
+（1）这个类是否有父类（除了java.lang.Object之外，所有类都应当有父类）。
+（2）这个类是否继承了不允许被继承的类（被final修饰的类）。
+（3）如果这个类不是抽象类，是否实现了其父类或接口之中所要求实现的所有方法。
+（4）类中的字段、方法是否与父类产生矛盾（例如覆盖了父类的final字段，或者出现不符合规则的方法重载，例如方法参数都一致，但返回值类型却不同等等）。
+ ......
+3.字节码验证：
+主要目的是通过数据流和控制流分析，确定程序语义是合法的、符合逻辑的。这个阶段将对类的方法体进行校验分析，保证被校验类的方法在运行时不会产生危害虚拟机安全的事件，例如：
+（1）保证任意时刻操作数栈的数据类型与指令代码序列都能配合工作，例如不会出现类似这样的情况：在操作数栈放置了一个int类型的数据，使用时却按long类型来加载入本地变量表中。
+（2）保证跳转指令不会跳转到方法体以外的字节码指令上。
+（3）保证方法体中的类型转换是有效的，例如可以把一个子类对象赋值给父类数据类型，但是把父类对象赋值给子类数据类型，甚至把对象赋值给与它毫无继承关系、完全不相干的一个数据类型，则是危险不合法的。
+......
+(Halting Problem:通过程序去校验程序逻辑是无法做到绝对准确的——不能通过程序准确的检查出程序是否能在有限时间之内结束运行。）
+4.符号引用验证：
+符号引用验证可以看作是类对自身以外（常量池中的各种符号引用）的信息进行匹配性校验，通常需要校验以下内容：
+（1）符号引用中通过字符串描述的全限定名是否能够找到对应的类。
+（2）在指定类中是否存在符合方法的字段描述符以及简单名称所描述的方法和字段。
+（3）符号引用中的类、字段、方法的访问性（private、protected、public、default）是否可被当前类访问。
+
+```
+
+#### 4.类加载-准备
+
+​	准备阶段正式为类变量（static）分配内存并设置变量的初始值。这些变量使用的内存都将在方法区中进行分配。
+
+​	这里的初始值并非代码中制定的值，而是默认值。但是如果被final修饰，则在这个过程中，指定的常量值被一同设置。
+
+#### 5.类加载-解析
+
+​	解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程。 
+
+>​	虚拟机规范之中并未规定解析阶段发生的具体实现，只要求了在执行anewarray、checkcast、getfield、getstatic、instanceof、invokedynamic、invokeinterface、invokespecial、invokestatic、invokevirtual、ldc、ldc_w、multianewarray、new、putfield和putstatic这16个用于操作符号引用的字节码指令之前，先对他们所使用的符号引用进行解析。所以虚拟机实现可以根据需要来判断到底是在类被加载器加载时就对常量池中的符号引用进行解析，还是等到一个符号引用将要被使用前采取解析他。
+>
+>​        对同一个符号引用进行多次解析请求是很常见的事情，除invokedynamic指令以外，虚拟机实现可以对第一次解析的结果进行缓存（在运行时常量池中记录直接引用，并把常量标识为已解析状态）从而避免解析动作重复进行。无论是否真正执行了多次解析动作，虚拟机需要保证的是在同一个实体中，如果一个符号引用之前已经被成功解析过，那么后续的引用解析请求就应当一直成功；同样的，如果第一次解析失败了，那么其他指令对这个符号的解析请求也应该受到相同的异常。
+>
+>​        对于invokedynamic指令，上面规则则不成立。当碰到某个前面已经由invokedynamic指令触发过解析的符号引用时，并不意味着这个解析结果对于其他invokedynamic指令也同样生效。因为invokedynamic指令的目的本来就是用于动态语言支持（目前仅使用[Java语言](https://www.baidu.com/s?wd=Java%E8%AF%AD%E8%A8%80&tn=24004469_oem_dg&rsv_dl=gh_pl_sl_csd)不会生成这条字节码指令），他所对应的引用称为“动态调用点限定符”（Dynamic Call Site Specifier），这里“动态”的含义就是必须等到程序实际运行到这条指令的时候，解析动作才能进行。相对的，其余可触发解析的指令都是“静态”的，可以在刚刚完成加载阶段，还没有开始执行代码时就进行解析。
+>
+>​        解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄和调用点限定符7类符号引用进行，分别对应于常量池的CONSTANT_Class_info、CONSTANT_Fieldref_info、CONSTANT_Methodref_info、CONSTANT_InterfaceMethodref_info、CONSTANT_MethodType_info、CONSTANT_MethodHandle_info和CONSTANT_InvokeDynamic_info 7种常量类型。下面将讲解前面4种引用的解析过程。
+
+```java
+符号引用（Symbolic References）：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可。
+ 
+直接引用（Direct References）：直接引用可以是直接指向目标的指针、相对偏移量或是一个能间接定位到目标的句柄。如果有了直接引用，那么引用的目标一定是已经存在于内存中。
+```
+
+​	1.类或接口的解析 
+
+```java
+假设当前代码所处的类为D，如果要把一个从未解析过的符号引用N解析为一个类或接口C的引用，那虚拟机完成整个解析过程需要以下3个步骤：
+（1）如果C不是一个数组类型，那虚拟机将会把代表N的全限定名传递给D的类加载器去加载这个类C。
+（2）如果C是一个数组类型，并且数组的元素类型为对象，那将会按照第1点的规则加载数组元素类型。
+（3）如果上面的步骤没有出现任何异常，那么C在虚拟机中实际上已经成为了一个有效的类或接口了，但在解析完成之前还要进行符号引用验证，确认D是否具有对C的访问权限。如果发现不具备访问权限，则抛出java.lang.IllegalAccessError异常
+```
+
+​	2.字段解析 
+
+```java
+首先解析字段表内class_index项中索引的CONSTANT_Class_info符号引用，也就是字段所属的类或接口的符号引用，如果解析完成，将这个字段所属的类或接口用C表示，虚拟机规范要求按照如下步骤对C进行后续字段的搜索。
+（1）如果C 本身就包含了简单名称和字段描述符都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。
+（2）否则，如果C中实现了接口，将会按照继承关系从下往上递归搜索各个接口和它的父接口如果接口中包含了简单名称和字段描述符都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。
+（3）否则，如果C 不是java.lang.Object的话，将会按照继承关系从下往上递归搜索其父类，如果在父类中包含了简单名称和字段描述符都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。
+（4）否则，查找失败，抛出java.lang.NoSuchFieldError异常。
+
+如果查找过程成功返回了引用，将会对这个字段进行权限验证，如果发现不具备对字段的访问权限，将抛出java.lang.IllegalAccessError异常。
+
+如果有一个同名字段同时出现在C的接口和父类中，或者同时在自己的父类或多个接口中出现，那编译器可能拒绝编译，并提示”The field xxx is ambiguous”。
+```
+
+​	3.类方法解析 
+
+```java
+首先解析类方法表内class_index项中索引的CONSTANT_Class_info符号引用，也就是方法所属的类或接口的符号引用，如果解析完成，将这个类方法所属的类或接口用C表示，虚拟机规范要求按照如下步骤对C进行后续类方法的搜索。
+（1）类方法和接口方法符号引用的常量类型定义是分开的，如果在类方法表中发现class_index中索引的C 是个接口，那就直接抛出java.lang.IncompatibleClassChangeError异常。
+（2）如果通过了第一步，在类C 中查找是否有简单名称和描述符都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。
+（3）否则，在类C的父类中递归查找是否有简单名称和描述符都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。
+（4）否则，在类C实现的接口列表以及他们的父接口中递归查找是否有简单名称和描述符都与目标相匹配的方法，如果存在相匹配的方法，说明类C是一个抽象类这时查找结束，抛出java.lang.AbstractMethodError异常。
+（5）否则，宣告方法查找失败，抛出java.lang.NoSuchMethodError。
+
+最后，如果查找成功返回了直接引用，将会对这个方法进行权限验证，如果发现不具备此方法的访问权限，则抛出java.lang.IllegalAccessError异常。
+```
+
+​	4.接口方法解析 
+
+```java
+首先解析接口方法表内class_index项中索引的CONSTANT_Class_info符号引用，也就是方法所属的类或接口的符号引用，如果解析完成，将这个接口方法所属的接口用C表示，虚拟机规范要求按照如下步骤对C进行后续接口方法的搜索。
+（1）与类解析方法不同，如果在接口方法表中发现class_index中的索引C是个类而不是个接口，那就直接抛出java.lang.IncompatibleClassChangeError异常。
+（2）否则，在接口C中查找是否有简单名称和描述符都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。
+（3）否则，在接口C的父接口中递归查找，直到java.lang.Object类（查找范围包括Object类）为止，看是否有简单名称和描述符都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。
+（4）否则，宣告方法查找失败，抛出java.lang.NoSuchMethodError。
+
+由于接口中所有的方法默认都是public的，所以不存在访问权限的问题，因此接口方法的符号解析应当不会抛出java.lang.IllegalAccessError异常。
+```
+
+#### 6.类加载-初始化
+
+​	类初始化阶段是类加载过程的最后一步，到了这个阶段才真正开始执行类中定义的Java程序代码（或者说是字节码）。在准备阶段，变量已经赋过一次系统要求的初始值，而在初始化阶段，则根据程序员通过程序制定的主观计划去初始化类变量和其他资源。  需要注意以下几点： 
+
+​	**1.编译器收集的顺序是由语句在源文件中出现的顺序决定的，静态语句块中只能访问到定义在静态语句块之前的变量，而定义在它之后的变量，在前面的静态语句块可以赋值，但不能访问**
+
+```java
+public class Test {
+    static {
+        i = 0;                       
+        System.out.print(i);         //编译器会提示“非法向前引用”
+        }
+    static int i = 1;
+}
+```
+
+​	**2.初始化方法执行的顺序，虚拟机会保证在子类的初始化方法执行之前，父类的初始化方法已经执行完毕，因此在虚拟机中第一个被执行的类初始化方法一定是java.lang.Object。另外，也意味着父类中定义的静态语句块要优先于子类的变量赋值操作** 
+
+```java
+static class Parent {
+    public static int A = 1;
+    static {
+        A = 2;
+        }
+    }
+ 
+static class Sub extends Parent {
+    public static int B = A;
+    }
+ 
+public static void main(String[] args) {
+    System.out.println(Sub.B);
+    }
+
+```
+
+​	**3.接口中不能使用静态语句块，但仍然有变量初始化的操作，因此接口与类一样都会生成clinit()方法，但与类不同的是，执行接口的初始化方法之前，不需要先执行父接口的初始化方法。只有当父接口中定义的变量使用时，才会执行父接口的初始化方法。另外，接口的实现类在初始化时也一样不会执行接口的clinit()方法** 
+
+​	**4.clinit ()方法对于类或接口来说并不是必须的，如果一个类中没有静态语句块，也没有对变量的赋值操作，那么编译器可以不为这个类生成clinit()方法** 
+
+​	**5.虚拟机会保证一个类的clinit()方法在多线程环境中被正确的加锁、同步，如果多个线程同时去初始化一个类，那么只会有一个线程去执行这个类的clinit()方法，其他线程都需要阻塞等待，直到活动线程执行类初始化方法完毕** 
+
+```java
+	static class Hello{
+		static {
+			System.out.println((Thread.currentThread().getName()+"init"));
+			
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		ExecutorService threadPool = Executors.newFixedThreadPool(10);
+		
+		int i = 0;
+		while (i++ < 10) {
+			threadPool.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					
+					System.out.println(Thread.currentThread().getName()+"start");
+					Hello hello = new Hello();
+					System.out.println(Thread.currentThread().getName()+"end");
+					
+				}
+			});
+		}
+		
+	}
+```
+
+#### 7.类加载器
+
+​	**1.启动类加载器：**这个类加载器负责放在<JAVA_HOME>\lib目录中的，或者被-Xbootclasspath参数所指定的路径中的，并且是虚拟机识别的类库。用户无法直接使用。
+
+​	**2.扩展类加载器：**这个类加载器由sun.misc.Launcher$AppClassLoader实现。它负责<JAVA_HOME>\lib\ext目录中的，或者被java.ext.dirs系统变量所指定的路径中的所有类库。用户可以直接使用。
+
+​	**3.应用程序类加载器：**这个类由sun.misc.Launcher$AppClassLoader实现。是ClassLoader中getSystemClassLoader()方法的返回值。它负责用户路径（ClassPath）所指定的类库。用户可以直接使用。如果用户没有自己定义类加载器，默认使用这个。
+
+​	**4.自定义加载器：**用户自己定义的类加载器。
+
+##### 双亲委托模式
+
+​	双亲委派模式要求除了顶层的启动类加载器外，其余的类加载器都应当有自己的父类加载器，请注意双亲委派模式中的父子关系并非通常所说的类继承关系，而是采用组合关系来复用父类加载器的相关代码 
+
+![](D:\Git_REP\JVM\类加载器.png)
+
+​	双亲委派模式是在Java 1.2后引入的，其工作原理的是，如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载
 
 ### **八、字节码执行引擎**
 
-#### 1.
+#### 1.运行时栈帧结构
+
+​	栈帧(Stack Frame)是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区的虚拟机栈(Virtual Machine Stack)的栈元素。栈帧存储了方法的局部变量表，操作数栈，动态连接和方法返回地址等信息。第一个方法从调用开始到执行完成，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。
+   	每一个栈帧都包括了局部变量表，操作数栈，动态连接，方法返回地址和一些额外的附加信息。在编译代码的时候，栈帧中需要多大的局部变量表，多深的操作数栈都已经完全确定了，并且写入到了方法表的Code属性中，因此一个栈帧需要分配多少内存，不会受到程序运行期变量数据的影响，而仅仅取决于具体虚拟机的实现。
+
+  	一个线程中的方法调用链可能会很长，很多方法都同时处理执行状态。对于执行引擎来讲，活动线程中，只有虚拟机栈顶的栈帧才是有效的，称为当前栈帧(Current Stack Frame)，这个栈帧所关联的方法称为当前方法(Current Method)。执行引用所运行的所有字节码指令都只针对当前栈帧进行操作。栈帧的概念结构如下图所示：
+
+![](D:\Git_REP\JVM\栈帧结构.png)
+
+##### 局部变量表
+
+​	局部变量表是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。在Java程序编译为Class文件时，就在方法表的Code属性的max_locals数据项中确定了该方法需要分配的最大局部变量表的容量。
+   	在方法执行时，虚拟机是使用局部变量表完成参数变量列表的传递过程，如果是实例方法，那么局部变量表中的每0位索引的Slot默认是用于传递方法所属对象实例的引用，在方法中可以通过关键字“this”来访问这个隐含的参数，其余参数则按照参数列表的顺序来排列，占用从1开始的局部变量Slot，参数表分配完毕后，再根据方法体内部定义的变量顺序和作用域来分配其余的Slot。局部变量表中的Slot是可重用的，方法体中定义的变量，其作用域并不一定会覆盖整个方法，如果当前字节码PC计算器的值已经超出了某个变量的作用域，那么这个变量对应的Slot就可以交给其它变量使用。
+
+​	局部变量不像前面介绍的类变量那样存在“准备阶段”。类变量有两次赋初始值的过程，一次在准备阶段，赋予系统初始值；另外一次在初始化阶段，赋予程序员定义的值。因此即使在初始化阶段程序员没有为类变量赋值也没有关系，类变量仍然具有一个确定的初始值。但局部变量就不一样了，如果一个局部变量定义了但没有赋初始值是不能使用的。
+
+##### 操作数栈
+
+​	操作数栈也常被称为操作栈，它是一个后入先出栈。同局部变量表一样，操作数栈的最大深度也是编译的时候被写入到方法表的Code属性的max_stacks数据项中。操作数栈的每一个元素可以是任意Java数据类型，包括long和double。32位数据类型所占的栈容量为1，64位数据类型所占的栈容量为2。栈容量的单位为“字宽”，对于32位虚拟机来说，一个”字宽“占4个字节，对于64位虚拟机来说，一个”字宽“占8个字节。
+   	当一个方法刚刚执行的时候，这个方法的操作数栈是空的，在方法执行的过程中，会有各种字节码指向操作数栈中写入和提取值，也就是入栈与出栈操作。例如，在做算术运算的时候就是通过操作数栈来进行的，又或者调用其它方法的时候是通过操作数栈来行参数传递的。
+
+   	另外，在概念模型中，两个栈帧作为虚拟机栈的元素，相互之间是完全独立的，但是大多数虚拟机的实现里都会作一些优化处理，令两个栈帧出现一部分重叠。让下栈帧的部分操作数栈与上面栈帧的部分局部变量表重叠在一起，这样在进行方法调用返回时就可以共用一部分数据，而无须进行额外的参数复制传递了，重叠过程如下图：
+
+![](D:\Git_REP\JVM\共享数据.png)
+
+##### 动态连接
+
+​	每个栈帧都包含一个指向运行时常量池中该栈帧所属性方法的引用，持有这个引用是为了支持方法调用过程中的动态连接。在Class文件的常量池中存有大量的符号引用，字节码中的方法调用指令就以常量池中指向方法的符号引用为参数。这些符号引用一部分会在类加载阶段或第一次使用的时候转化为直接引用，这种转化称为静态解析。另外一部分将在每一次的运行期期间转化为直接引用，这部分称为动态连接。
+
+##### 方法返回地址
+
+​	当一个方法被执行后，有两种方式退出这个方法。第一种方式是执行引擎遇到任意一个方法返回的字节码指令，这时候可能会有返回值传递给上层的方法调用者(调用当前方法的的方法称为调用者)，是否有返回值和返回值的类型将根据遇到何种方法返回指令来决定，这种退出方法方式称为正常完成出口(Normal Method Invocation Completion)。
+   	另外一种退出方式是，在方法执行过程中遇到了异常，并且这个异常没有在方法体内得到处理，无论是Java虚拟机内部产生的异常，还是代码中使用athrow字节码指令产生的异常，只要在本方法的异常表中没有搜索到匹配的异常处理器，就会导致方法退出，这种退出方式称为异常完成出口(Abrupt Method Invocation Completion)。一个方法使用异常完成出口的方式退出，是不会给它的调用都产生任何返回值的。
+   	无论采用何种方式退出，在方法退出之前，都需要返回到方法被调用的位置，程序才能继续执行，方法返回时可能需要在栈帧中保存一些信息，用来帮助恢复它的上层方法的执行状态。一般来说，方法正常退出时，调用者PC计数器的值就可以作为返回地址，栈帧中很可能会保存这个计数器值。而方法异常退出时，返回地址是要通过异常处理器来确定的，栈帧中一般不会保存这部分信息。
+
+   	方法退出的过程实际上等同于把当前栈帧出栈，因此退出时可能执行的操作有：恢复上层方法的局部变量表和操作数栈，把返回值(如果有的话)压入调用都栈帧的操作数栈中，调用PC计数器的值以指向方法调用指令后面的一条指令等。
+
+##### 附加信息
+
+ 	虚拟机规范允许具体的虚拟机实现增加一些规范里没有描述的信息到栈帧中，例如与高度相关的信息，这部分信息完全取决于具体的虚拟机实现。在实际开发中，一般会把动态连接，方法返回地址与其它附加信息全部归为一类，称为栈帧信息。 
 
 #### 2.
 
