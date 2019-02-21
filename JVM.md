@@ -164,7 +164,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 - 对常量垃圾回收
 - 异常的定义：如在申请内存时，如果不足则抛出OutOfMemoryError
 
-1. 运行时常量池（方法区一部分）：如String str = new String("abc");   str.intern();（对于new的对象会直接在Java堆中分配新的内存地址及实例，如果直接用常量赋值，则在方法区中的常量池中进行常量分配）
+1. 运行时常量池（方法区一部分）：如`String str = new String("abc");   str.intern();`（对于new的对象会直接在Java堆中分配新的内存地址及实例，如果直接用常量赋值，则在方法区中的常量池中进行常量分配）
 
 2. 直接内存：基本由NIO使用
 
@@ -174,7 +174,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 1. **对象的创建**
 
-   只有new对象与调用对象的<init>方法可以检测到，中间的步骤都是虚拟机内部执行
+   只有new对象与调用对象的\<init>方法可以检测到，中间的步骤都是虚拟机内部执行
 
    ![对象的创建](对象的创建.png)
 
@@ -246,9 +246,12 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 					|-Eden
 					|-Survivor
 					|-Tenured Gen
-				|-老年代
-		|-方法区
-		|-栈	-本地方法栈	-程序计数器
+			|-方法区 
+				|-永久区
+				|-常量池
+			|-栈	
+				|-本地方法栈	
+				|-程序计数器
 
 ```
 
@@ -428,13 +431,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		
 
-> -XX:+<option> 启用选项
+> -XX:+\<option> 启用选项
 >
-> -XX:-<option> 不启用选项
+> -XX:-\<option> 不启用选项
 >
-> -XX:<option>=<number> 
+> -XX:\<option>=\<number> 
 >
-> -XX:<option>=<string>
+> -XX:\<option>=\<string>
 
 | 参数                               | 描述                                                         |
 | ---------------------------------- | ------------------------------------------------------------ |
