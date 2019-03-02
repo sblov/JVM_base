@@ -25,13 +25,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​	该文件需要通过内存分析工具进行查看分析（eclipse memory analysis）
 
-![eclipse meomory analysis](溢出分析.png)
+![eclipse meomory analysis](img/溢出分析.png)
 
 #### 2）JVM监控工具
 
 ​	在jdk包中包含了对JVM的监控工具：`jconsole`
 
-![jconsole](jconsole.png)
+![jconsole](img/jconsole.png)
 
 
 
@@ -106,7 +106,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ### 二、**内存结构**
 
-​	![java虚拟机内存管理图](内存管理.png)
+​	![java虚拟机内存管理图](img/内存管理.png)
 
 #### 1.程序计数器
 
@@ -143,7 +143,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
   }
   ```
 
-  ![StackOverFlowError](StackOverFlowError.png)
+  ![StackOverFlowError](img/StackOverFlowError.png)
 
 #### 3.本地方法栈：
 
@@ -176,7 +176,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
    只有new对象与调用对象的\<init>方法可以检测到，中间的步骤都是虚拟机内部执行
 
-   ![对象的创建](对象的创建.png)
+   ![对象的创建](img/对象的创建.png)
 
    给对象分配内存：
 
@@ -195,7 +195,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
       - 自身运行时数据（Mark Word）：哈希值；GC分代年龄；锁状态标志；线程持有的锁；偏向线程ID；偏向时间戳
       - 类型指针
 
-      ![对象头](对象头.png)
+      ![对象头](img/对象头.png)
 
    2. InstanceData（内部的数据存储策略：将宽度相同类型的数据存放在一块）
 
@@ -225,7 +225,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		*-verbose:gc -XX:+PrintGCDetails*
 
-![GCDetails](GCDetails.png)
+![GCDetails](img/GCDetails.png)
 
 ##### 	2.可达性分析法
 
@@ -233,7 +233,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		GCRoots：虚拟机栈引用的对象；方法去的类属性引用的对象；方法区中常量引用的对象；本地方法栈中引用的对象
 
-![可达性分析法](可达性分析法.png)
+![可达性分析法](img/可达性分析法.png)
 
 #### 2.垃圾回收
 
@@ -267,7 +267,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			**浪费空间：**
 
-​			![](复制算法.png)
+​			![](img/复制算法.png)
 
 ​			在java中的新生代串行垃圾回收器中，使用了复制算法的思想，新生代分为eden空间、from空间和to空间3个部分，其中from和to空间可以看做用于复制的两块大小相同、可互换角色的内存空间块（同一时间只能有一个被当做当前内存空间使用，另一个在垃圾回收时才发挥作用），from和to空间也称为survivor空间，用于存放未被回收的对象。
 
@@ -281,7 +281,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​	
 
-![复制算法2](复制算法2.png)
+![复制算法2](img/复制算法2.png)
 
 ###### 		3）**标记-整理算法**（标记清除压缩算法 ）
 
@@ -291,13 +291,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			将所有的存活对象压缩到内存空间的一端，之后，清理边界外所有的空间。这样做避免的碎片的产生，又不需要两块相同的内存空间，因此性价比高
 
-​			![](标记整理.png)
+​			![](img/标记整理.png)
 
 ###### 		4）**分代收集算法**
 
 ​			将内存空间根据对象的特点不同进行划分，选择合适的垃圾回收算法，以提高垃圾回收的效率。 
 
-​			![](分代算法.png)
+​			![](img/分代算法.png)
 
 ###### 		5)**分区算法** 
 
@@ -307,7 +307,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			通常，相同的条件下，堆空间越大，一次GC所需的时间就越长，从而产生的停顿时间就越长。为了更好的控制GC产生的停顿时间，将一块大的内存区域分割成多个小块，根据目标的停顿时间，每次合理的回收若干个小区间，而不是整个堆空间，从而减少一个GC的停顿时间。 
 
-​			![](分区算法.png)
+​			![](img/分区算法.png)
 
 ##### 	2.垃圾回收器
 
@@ -319,7 +319,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​			是Jvm **client模式**下默认的**新生代收集器**。对于限定单个CPU的环境来说，简单高效，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率，因此是运行在Client模式下的虚拟机的不错选择（比如桌面应用场景）。 
 
-​		![](serial收集器.jpg) 
+​		![](img/serial收集器.jpg) 
 
 ---
 
@@ -329,7 +329,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ​		如果在Service模式下使用：1.一种是在JDK1.5以及之前的版本中与Parallel Scavenge收集器搭配使用，因为那时还没有Parallel  Old老年代收集器搭配；2.另一种就是作为CMS收集器的后备预案，在并发收集发生Concurrent Model Failure时使用 
 
-​			![](Serial Old.jpg)
+​			![](img/Serial Old.jpg)
 
 ###### 		2）Parnew
 
@@ -337,7 +337,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 　　		ParNew收集器在单CPU环境中绝对没有Serial的效果好，由于存在线程交互的开销，该收集器在超线程技术实现的双CPU中都不能一定超过Serial收集器。默认开启的垃圾收集器线程数就是CPU数量，可通过-XX：parallelGCThreads参数来限制收集器线程数
 
-​			![](ParNew收集器.jpg)
+​			![](img/ParNew收集器.jpg)
 
 ###### 		3）Parallel Scavenge
 
@@ -349,13 +349,13 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 　　		还有一个参数表示自适应调节策略（GC Ergonomics）（-XX：UseAdaptiveSizePolicy）。就不用手动设置新生代大小（-Xmn）、Eden和Survivor区的比例（-XX：SurvivorRatio）今生老年代对象大小（-XX：PretenureSizeThreshold），会根据当前系统的运行情况手机监控信息，动态调整停顿时间和吞吐量大小。也是其与PreNew收集器的一个重要区别，也是其无法与CMS收集器搭配使用的原因（CMS收集器尽可能地缩短垃圾收集时用户线程的停顿时间，以提升交互体验）。
 
-​			![](Parallel Scavenge收集器.jpg)
+​			![](img/Parallel Scavenge收集器.jpg)
 
 ---
 
 ​			**Parallel Old(并行GC)收集器:**Parallel Old是Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法，JDK1.6才提供。 由于之前有一个Parallel Scavenge新生代收集器，但是却无老年代收集器与之完美结合，只能采用Serial Old老年代收集器，但是由于Serial Old收集器在服务端应用性能上低下（毕竟单线程，多CPU浪费了），其吞吐量反而不一定有ParNew+CMS组合。 
 
-​			![](Parallel Old.jpg)
+​			![](img/Parallel Old.jpg)
 
 ###### 		4）Cms
 
@@ -383,7 +383,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 > >
 > > 　　3.最后一个缺点，CMS是基于“标记-清除”算法实现的收集器，使用“标记-清除”算法收集后，会产生大量碎片。空间碎片太多时，将会给对象分配带来很多麻烦，比如说大对象，内存空间找不到连续的空间来分配不得不提前触发一次Full  GC。为了解决这个问题，CMS收集器提供了一个-XX:UseCMSCompactAtFullCollection开关参数，用于在Full  GC之后增加一个内存碎片的合并整理过程，但是内存整理过程是无法并发的，因此解决了空间碎片问题，却使停顿时间变长。还可通过-XX:CMSFullGCBeforeCompaction参数设置执行多少次不压缩的Full  GC之后，跟着来一次碎片整理过程（默认值是0，表示每次进入Full GC时都进行碎片整理）。
 
-​			![](CMS收集器.jpg)
+​			![](img/CMS收集器.jpg)
 
 ###### 		5）G1
 
@@ -514,7 +514,7 @@ public class AllocationTest {
 
 ```
 
-![](优先分配Eden.png)
+![](img/优先分配Eden.png)
 
 ​		**[GC……]**就是GC日志记录，而Heap以下的信息是JVM关闭前的堆使用情况信息描述。
 
@@ -544,7 +544,7 @@ public class AllocationTest{
 }
 ```
 
-![](大对象分配.png)
+![](img/大对象分配.png)
 
 ​		allocation1分配的是4MB，达到PretenureSizeThreshold定义的4MB阀值，所以直接分配到老年代，没有GC
 
@@ -577,7 +577,7 @@ public class AllocationTest{
 
 ```
 
-![](长期存活对象.png)
+![](img/长期存活对象.png)
 
 ​		该环境为jdk8.0，无论**-XX:MaxTenuringThreshold=15 OR 1**，输出结果一样；或许内部有改动，但还是看出两次的GC，第二次直接将allocation1分配到老年代
 
@@ -607,7 +607,7 @@ public class AllocationTest{
 
 ```
 
-![](年龄代分配.png)
+![](img/年龄代分配.png)
 
 ​		由于jdk8.0的改进，两种情况输出一致
 
@@ -652,7 +652,7 @@ public class AllocationTest{
 
 ​	java编译环境运行，产生本地虚拟机唯一id（local virtual machine id），没有具体应用名
 
-![](jps.png)
+![](img/jps.png)
 
 #### 2.jstat
 
@@ -660,9 +660,9 @@ public class AllocationTest{
 
 `https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html`
 
-![](jstat.png)
+![](img/jstat.png)
 
-![](jstat -gc.png)
+![](img/jstat -gc.png)
 
 ​	元空间：本质与永久代类似，都是对jvm规范中方法区的实现	。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间大小仅受本地内存限制
 
@@ -670,7 +670,7 @@ public class AllocationTest{
 
 ​	实时查看和调整虚拟机的各项参数
 
-​	![](jinfo.png)
+​	![](img/jinfo.png)
 
 #### 4.jmap
 
@@ -678,7 +678,7 @@ public class AllocationTest{
 
 ​	`jmap -dump:format=b,file=e:\a.bin 10688`	将快照信息转储到指定文件中
 
-![](jmap.png)
+![](img/jmap.png)
 
 #### 5.jhat
 
@@ -686,13 +686,13 @@ public class AllocationTest{
 
 ​	堆jmap生成的快照文件进行分析，并会以http服务方式，提供端口查看具体分析信息，该工具在分析时会很占内存与CPU
 
-![](jhat.png)
+![](img/jhat.png)
 
 ​	以localhost:7000访问
 
 ![](jhat-2.png)				
 
-​	通过OQL对分析的堆内对象进行查询![](oql.png)
+​	通过OQL对分析的堆内对象进行查询![](img/oql.png)
 
 #### 6.jstack
 
@@ -700,7 +700,7 @@ public class AllocationTest{
 
 ​	线程快照：当前虚拟机内，每一条线程执行的方法堆栈集合
 
-![](jstack.png)
+![](img/jstack.png)
 
 ​	通过以下代码可实现类似功能
 
@@ -727,7 +727,7 @@ public class StackTrace {
 }
 ```
 
-![](stacktrace.png)
+![](img/stacktrace.png)
 
 #### 7.jconsole
 
@@ -741,7 +741,7 @@ List<Object> list = new ArrayList<>();
 		}
 ```
 
-![](jconsole_1.png)
+![](img/jconsole_1.png)
 
 ​	线程监控
 
@@ -778,7 +778,7 @@ List<Object> list = new ArrayList<>();
 		thread.start();
 ```
 
-![](jconsol_2.png)
+![](img/jconsol_2.png)
 
 ​	死锁
 
@@ -831,11 +831,11 @@ class DeadLock implements Runnable{
 }
 ```
 
-![](jconsole_2.png)
+![](img/jconsole_2.png)
 
 #### 8.VisualVM
 
-![](jvisualVM.PNG)
+![](img/jvisualVM.PNG)
 
 ### 五、**性能调优案例**
 
@@ -886,17 +886,17 @@ class DeadLock implements Runnable{
 
 ​	class文件以魔数开头，通过魔数可判断当前文件是否为class，魔数后有可以判断jdk版本的major_version
 
-![](魔数.png)
+![](img/魔数.png)
 
-![](魔数-jdk.png)
+![](img/魔数-jdk.png)
 
 ##### 常量池(constant_pool)
 
-![](常量池.png)
+![](img/常量池.png)
 
 ​	紧接着主次版本号就是常量池了，第一个是常量池数量(占两个字节)，接下来就是常量池表，通过cp_info，确定指向的常量，通过以下常量项目表来分析常量池位置大小
 
-![](常量项目类型.png)
+![](img/常量项目类型.png)
 
 ​	通过javap更直观的查看整个class文件中的常量池
 
@@ -908,11 +908,11 @@ class DeadLock implements Runnable{
 
 ​	**字节码文件：**
 
-![](flags.png)
+![](img/flags.png)
 
 ​	**javap -verbose :**
 
-![](flags2.png)
+![](img/flags2.png)
 
 ​	**具体含义：**
 
@@ -927,23 +927,23 @@ class DeadLock implements Runnable{
 | ACC_ANNOTATION | 0x2000 | 注解类型                  | 注解       |
 | ACC_ENUM       | 0x4000 | 枚举类型                  | 枚举       |
 
-![](access_flags.png)
+![](img/access_flags.png)
 
 ##### 类索引
 
 ​	位于访问标志后，先是指向常量池中当前类索引，然后指向继承的父类索引，再是接口的数量，最后是每个接口对应的索引，该demo中没有接口
 
-​	![](类索引.png)
+​	![](img/类索引.png)
 
 ##### 字段表集合
 
 ​	class文件：
 
-​		![](字段表集合.png)
+​		![](img/字段表集合.png)
 
 ​	javap -verbose
 
-![](字段表集合2.png)
+![](img/字段表集合2.png)
 
 ​	字段表的结构： 字段修饰符放在access_flags中，它与类中的access_flags相似，都是一个u2的数据类型
 
@@ -988,7 +988,7 @@ class DeadLock implements Runnable{
 
 ​	表结构与字段表一致
 
-![](方法表集合.png)
+![](img/方法表集合.png)
 
 ##### 属性表集合
 
@@ -1020,7 +1020,7 @@ class DeadLock implements Runnable{
 
 ​	基本上指令的第一个字母表示数据类型
 
-![](指令集数据类型.png)
+![](img/指令集数据类型.png)
 
 ##### 加载指令
 
@@ -1034,7 +1034,7 @@ class DeadLock implements Runnable{
 
 ​	扩展局部变量表的访问索引的指令：wide
 
-![](加载指令.png)
+![](img/加载指令.png)
 
 ```java
 public class demo{
@@ -1069,7 +1069,7 @@ public int add(int a,int b){
 
 i2l：int转换为long，以上代码问题为在int运算时越界，再将结果转换为long	
 
-​	![ ](类型转换指令.png)
+​	![ ](img/类型转换指令.png)
 
 ##### 对象创建与访问指令
 
@@ -1106,7 +1106,7 @@ class User{
 }
 ```
 
-![](对象创建指令.png)
+![](img/对象创建指令.png)
 
 ##### 操作数栈管理指令
 
@@ -1137,7 +1137,7 @@ int a = 1;
 		}
 ```
 
-![](控制转移指令.png)
+![](img/控制转移指令.png)
 
 ##### 方法调用与返回指令
 
@@ -1202,7 +1202,7 @@ try{
 		throw new RuntimeException("error");
 ```
 
-![](异常指令.png)
+![](img/异常指令.png)
 
 ##### 同步指令
 
@@ -1218,7 +1218,7 @@ synchronized(demo.class){
 		}
 ```
 
-![](同步指令.png)
+![](img/同步指令.png)
 
 ### 七、**类加载机制**
 
@@ -1232,11 +1232,11 @@ synchronized(demo.class){
 
 ​	对于初始化，只有在以下条件才能触发
 
-![](初始化时机.png)
+![](img/初始化时机.png)
 
 ​	*不被初始化的例子*
 
-![](不被初始化.png)
+![](img/不被初始化.png)
 
 ```java
 	public static void main(String[] args) {
@@ -1458,7 +1458,7 @@ public static void main(String[] args) {
 
 ​	双亲委派模式要求除了顶层的启动类加载器外，其余的类加载器都应当有自己的父类加载器，请注意双亲委派模式中的父子关系并非通常所说的类继承关系，而是采用组合关系来复用父类加载器的相关代码 
 
-![](类加载器.png)
+![](img/类加载器.png)
 
 ​	双亲委派模式是在Java 1.2后引入的，其工作原理的是，如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载
 
@@ -1471,7 +1471,7 @@ public static void main(String[] args) {
 
   	一个线程中的方法调用链可能会很长，很多方法都同时处理执行状态。对于执行引擎来讲，活动线程中，只有虚拟机栈顶的栈帧才是有效的，称为当前栈帧(Current Stack Frame)，这个栈帧所关联的方法称为当前方法(Current Method)。执行引用所运行的所有字节码指令都只针对当前栈帧进行操作。栈帧的概念结构如下图所示：
 
-![](栈帧结构.png)
+![](img/栈帧结构.png)
 
 ##### 局部变量表
 
@@ -1487,7 +1487,7 @@ public static void main(String[] args) {
 
    	另外，在概念模型中，两个栈帧作为虚拟机栈的元素，相互之间是完全独立的，但是大多数虚拟机的实现里都会作一些优化处理，令两个栈帧出现一部分重叠。让下栈帧的部分操作数栈与上面栈帧的部分局部变量表重叠在一起，这样在进行方法调用返回时就可以共用一部分数据，而无须进行额外的参数复制传递了，重叠过程如下图：
 
-![](共享数据.png)
+![](img/共享数据.png)
 
 ##### 动态连接
 
@@ -1515,7 +1515,7 @@ public static void main(String[] args) {
 
 ​	针对方法的重载
 
-​	![](静态分派1.png)![](静态分派2.png)
+​	![](img/静态分派1.png)![](img/静态分派2.png)
 
 ##### 动态分配调用	
 
